@@ -11,7 +11,7 @@ export default theme => ({
       }
     },
     "& + &": {
-      marginTop: theme.spacing.unit
+      marginTop: theme.spacing(1)
     }
   },
   activeListItem: {
@@ -34,7 +34,7 @@ export default theme => ({
     color: theme.palette.text.secondary
   },
   listDivider: {
-    marginBottom: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit * 2
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2)
   }
 });

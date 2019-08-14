@@ -17,6 +17,10 @@ import {
 // Component styles
 import styles from "./styles";
 
+const CollisionLink = React.forwardRef((props, ref) => (
+  <NavLink innerRef={ref} to="/getting-started/installation/" {...props} />
+));
+
 class Sidebar extends Component {
   render() {
     const { classes, className } = this.props;
@@ -29,7 +33,8 @@ class Sidebar extends Component {
           <ListItem
             activeClassName={classes.activeListItem}
             className={classes.listItem}
-            component={NavLink}
+            // component={NavLink}
+            component={CollisionLink}
             to="/dashboard"
           >
             <ListItemIcon className={classes.listItemIcon}>
@@ -43,7 +48,8 @@ class Sidebar extends Component {
           <ListItem
             activeClassName={classes.activeListItem}
             className={classes.listItem}
-            component={NavLink}
+            // component={NavLink}
+            component={CollisionLink}
             to="/task-list"
           >
             <ListItemIcon className={classes.listItemIcon}>

@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigInteger;
+
 import static  org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -32,19 +34,19 @@ public class TaskRestControllerIntegrationTest {
 
 	@Test
 	public void getAllTasks() throws Exception {
-		saveTask("title1", "description1");
+		saveTask("subject1", "description1");
 		mvc.perform(get("/task/get-all-tasks")
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content()
 						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$[0].title", is("title1")));
+				.andExpect(jsonPath("$[0].title", is("subject1")));
 	}
 
 	private Task saveTask(String title1, String description1) {
 		Task task = new Task();
-		task.setId(1L);
-		task.setTitle(title1);
+		task.setId(BigInteger.valueOf(1L));
+		task.setSubject(title1);
 		task.setDescription(description1);
 		return taskRepository.save(task);
 	}

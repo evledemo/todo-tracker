@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/task")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:4200"})
+@RequestMapping("/task-rest")
 public class TaskRestController {
 
 	private TaskService taskService;
@@ -20,6 +21,11 @@ public class TaskRestController {
 
 	@GetMapping("/get-all-tasks")
 	public List<TaskDTO> getAllTasks() {
+		return taskService.findAll();
+	}
+
+	@GetMapping("/dashboard-tasks")
+	public List<TaskDTO> getDashboardTasks() {
 		return taskService.findAll();
 	}
 
@@ -37,8 +43,8 @@ public class TaskRestController {
 	}
 
 	@PostMapping("post-task")
-	public TaskDTO postTask(TaskDTO task) {
-		return task;
+	public TaskDTO postTask(@RequestBody(required = false) TaskDTO taskDTO) {
+		return taskService.saveTask(taskDTO);
 	}
 
 }

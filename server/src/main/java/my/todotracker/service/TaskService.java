@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface TaskService {
 	List<TaskDTO> findAll();
+
+	TaskDTO saveTask(TaskDTO taskDTO);
 }

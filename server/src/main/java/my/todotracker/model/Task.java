@@ -2,9 +2,13 @@ package my.todotracker.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import my.todotracker.enums.TaskStatusEnum;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -12,12 +16,15 @@ import java.util.List;
 @Document
 public class Task {
 	@Id
-	private Long id;
-	private String title;
+	private BigInteger id;
+	private String subject;
 	private String description;
 
-	private Float timePlan;
-	private Float timeSpend;
+	private TaskStatusEnum taskStatus;
+
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
+//	@Temporal(TemporalType.TIMESTAMP)
+	private Date created;
 
 	private List<String> tags;
 }
