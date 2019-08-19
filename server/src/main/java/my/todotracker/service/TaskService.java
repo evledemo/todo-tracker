@@ -8,4 +8,8 @@ public interface TaskService {
 	List<TaskDTO> findAll();
 
 	TaskDTO saveTask(TaskDTO taskDTO);
+
+	TaskDTO getTask(String taskId);
+
+	void deleteTask(String taskId);
 }

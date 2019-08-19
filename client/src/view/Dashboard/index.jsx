@@ -26,22 +26,9 @@ class TaskDashBoard extends React.Component {
     this.state = {
       isLoading: false,
       limit: 10,
-      tasks: [],
       selectedUsers: [],
       error: null
     };
-
-    this.refreshCourses = this.refreshCourses.bind(this);
-  }
-
-  componentDidMount() {
-    this.refreshCourses();
-  }
-
-  refreshCourses() {
-    TaskDataService.getDashboardTasks().then(response => {
-      this.setState({ tasks: response.data });
-    });
   }
 
   render() {
@@ -53,13 +40,7 @@ class TaskDashBoard extends React.Component {
         <div className={classes.root}>
           <Grid container spacing={4}>
             <Grid item lg={8} md={12} xl={9} xs={12}>
-              <TaskTable className={classes.item} tasks={tasks} />
-            </Grid>
-            <Grid item lg={4} md={12} xl={3} xs={12}>
-              <TaskForm
-                className={classes.item}
-                refreshCoursesFun={() => this.refreshCourses()}
-              />
+              <TaskTable className={classes.item} />
             </Grid>
           </Grid>
         </div>

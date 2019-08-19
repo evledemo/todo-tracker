@@ -29,12 +29,12 @@ public class TaskRestController {
 		return taskService.findAll();
 	}
 
-	@GetMapping("get-task")
-	public TaskDTO getTask() {return null;}
+	@GetMapping("get-task/{taskId}")
+	public TaskDTO getTask(@PathVariable String taskId) {return taskService.getTask(taskId);}
 
-	@DeleteMapping("delete-task")
-	public void deleteTask(Long id) {
-		throw new UnsupportedOperationException();
+	@DeleteMapping("task/{taskId}")
+	public void deleteTask(@PathVariable String taskId) {
+		taskService.deleteTask(taskId);
 	}
 
 	@PutMapping("put-task")

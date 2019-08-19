@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,14 +40,34 @@ public class TaskServiceIml implements TaskService {
 		return taskMapper.taskToTaskDTO(task);
 	}
 
+	@Override
+	public TaskDTO getTask(String taskId) {
+		Optional<Task> byId = taskRepository.findById(taskId);
+		if (!byId.isPresent())
+			return null;
+		Task task = byId.get();
+		return taskMapper.taskToTaskDTO(task);
+	}
+
 	private Task update(TaskDTO taskDTO) {
-		return taskRepository.save(taskMapper.taskToTaskDTO(taskDTO));
+		Task task = taskMapper.taskToTaskDTO(taskDTO);
+		return taskRepository.save(task);
 	}
 
 	private Task save(TaskDTO taskDTO) {
 		Task task = taskMapper.taskToTaskDTO(taskDTO);
 		task.setCreated(new Date());
-		task.setTaskStatus(TaskStatusEnum.Draft);
+		if (task.getTaskStatus() == null)
+			task.setTaskStatus(TaskStatusEnum.Draft);
 		return taskRepository.save(task);
+	}
+
+	@Override
+	public void deleteTask(String taskId) {
+		taskRepository.deleteById(taskId);
+	}
+
+	public void setTaskMapper(TaskMapper taskMapper) {
+		this.taskMapper = taskMapper;
 	}
 }

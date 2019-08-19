@@ -7,7 +7,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +15,7 @@ import java.util.List;
 @Document
 public class Task {
 	@Id
-	private BigInteger id;
+	private String id;
 	private String subject;
 	private String description;
 

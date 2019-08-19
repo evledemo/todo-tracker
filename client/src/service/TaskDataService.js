@@ -13,11 +13,11 @@ class TaskDataService {
   }
 
   getTask(id) {
-    return axios.get(`${INSTRUCTOR_API_URL}/tasks/${id}`);
+    return axios.get(`${INSTRUCTOR_API_URL}/get-task/${id}`);
   }
 
   deleteTask(id) {
-    return axios.delete(`${INSTRUCTOR_API_URL}/tasks/${id}`);
+    return axios.delete(`${INSTRUCTOR_API_URL}/task/${id}`);
   }
 
   putTask(task) {

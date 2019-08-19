@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import my.todotracker.enums.TaskStatusEnum;
 
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
 @Setter
 public class TaskDTO {
 
-	private BigInteger id;
+	protected String id;
 	private String subject;
 	private String description;
 
