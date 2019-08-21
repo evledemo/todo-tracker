@@ -32,18 +32,17 @@ class TaskForm extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.heandleChange = this.heandleChange.bind(this);
     this.heandleDropDownChange = this.heandleDropDownChange.bind(this);
+    this.handleClose = this.handleClose.bind(this);
 
     this.state = { editItem: Object.assign({}, newTask) };
   }
 
   componentDidUpdate() {
     if (this.state.id !== this.props.editItemId) {
-      console.log("componentDidUpdate");
       if (this.props.editItemId == null) {
         this.setState({ ...Object.assign({}, newTask) });
       } else {
         TaskDataService.getTask(this.props.editItemId).then(response => {
-          console.log(response.data);
           this.setState({ ...response.data });
         });
       }
@@ -71,6 +70,10 @@ class TaskForm extends React.Component {
     TaskDataService.postTask(obj).then(res => {
       this.props.postSaveItemFun();
     });
+  }
+
+  handleClose() {
+    this.props.handleCloseFn();
   }
 
   render() {
@@ -129,11 +132,16 @@ class TaskForm extends React.Component {
               </div>
             </DialogContent>
             <DialogActions>
-              <div className={classes.field}>
-                <Button color="primary" type="submit" variant="contained">
-                  Save
-                </Button>
-              </div>
+              <Button
+                type="button"
+                variant="contained"
+                onClick={this.handleClose}
+              >
+                Cancel
+              </Button>
+              <Button color="primary" type="submit" variant="contained">
+                Save
+              </Button>
             </DialogActions>
           </form>
         </div>

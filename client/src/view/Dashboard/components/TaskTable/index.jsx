@@ -36,6 +36,7 @@ class TaskTable extends React.Component {
     this.openEditWindow = this.openEditWindow.bind(this);
     this.refreshTasks = this.refreshTasks.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.handleCloseFn = this.handleCloseFn.bind(this);
   }
 
   componentDidMount() {
@@ -57,6 +58,10 @@ class TaskTable extends React.Component {
   postSaveItem() {
     this.setState({ showTaskEditWindow: false });
     this.refreshTasks();
+  }
+
+  handleCloseFn() {
+    this.setState({ showTaskEditWindow: false });
   }
 
   openEditWindow = itemId => {
@@ -127,6 +132,7 @@ class TaskTable extends React.Component {
         </Table>
         <TaskForm
           className={classes.item}
+          handleCloseFn={() => this.handleCloseFn()}
           editItemId={this.state.editItemId}
           showTaskEditWindow={this.state.showTaskEditWindow}
           postSaveItemFun={() => this.postSaveItem()}
