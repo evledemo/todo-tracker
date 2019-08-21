@@ -18,6 +18,7 @@ import {
 import styles from "./styles";
 import { TaskForm } from "..";
 import AddIcon from "@material-ui/icons/Add";
+import FiberManualRecord from "@material-ui/icons/FiberManualRecord";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import TaskDataService from "../../../../service/TaskDataService";
@@ -37,6 +38,7 @@ class TaskTable extends React.Component {
     this.refreshTasks = this.refreshTasks.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
     this.handleCloseFn = this.handleCloseFn.bind(this);
+    this.getStatusColor = this.getStatusColor.bind(this);
   }
 
   componentDidMount() {
@@ -66,6 +68,12 @@ class TaskTable extends React.Component {
 
   openEditWindow = itemId => {
     this.setState({ editItemId: itemId, showTaskEditWindow: true });
+  };
+
+  getStatusColor = status => {
+    if (status === "Draft") return "gray";
+    if (status === "Active") return "green";
+    if (status === "Done") return "gold";
   };
 
   render() {
@@ -103,6 +111,12 @@ class TaskTable extends React.Component {
                     {task.subject}
                   </TableCell>
                   <TableCell className={classes.tableCell}>
+                    <FiberManualRecord
+                      style={{
+                        fontSize: 13,
+                        color: this.getStatusColor(task.taskStatus)
+                      }}
+                    />
                     {task.taskStatus}
                   </TableCell>
                   <TableCell className={classes.tableCell}>
