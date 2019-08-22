@@ -8,8 +8,8 @@ class TaskDataService {
     return axios.get(`${INSTRUCTOR_API_URL}/tasks`);
   }
 
-  getDashboardTasks() {
-    return axios.get(`${INSTRUCTOR_API_URL}/dashboard-tasks`);
+  getDashboardTasks(params) {
+    return axios.get(`${INSTRUCTOR_API_URL}/dashboard-tasks?` + params);
   }
 
   getTask(id) {
