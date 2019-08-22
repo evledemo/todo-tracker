@@ -11,7 +11,10 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableRow
+  TableRow,
+  FormControlLabel,
+  Checkbox,
+  FormGroup
 } from "@material-ui/core";
 
 // Component styles
@@ -31,7 +34,8 @@ class TaskTable extends React.Component {
       page: 0,
       editItemId: null,
       showTaskEditWindow: false,
-      tasks: []
+      tasks: [],
+      selectedStatuses: ["Draft", "Active"]
     };
 
     this.openEditWindow = this.openEditWindow.bind(this);
@@ -39,6 +43,7 @@ class TaskTable extends React.Component {
     this.deleteTask = this.deleteTask.bind(this);
     this.handleCloseFn = this.handleCloseFn.bind(this);
     this.getStatusColor = this.getStatusColor.bind(this);
+    this.handleStatusFilterChange = this.handleStatusFilterChange.bind(this);
   }
 
   componentDidMount() {
@@ -46,7 +51,9 @@ class TaskTable extends React.Component {
   }
 
   refreshTasks() {
-    TaskDataService.getDashboardTasks().then(response => {
+    TaskDataService.getDashboardTasks(
+      "selectedStatuses=" + this.state.selectedStatuses
+    ).then(response => {
       this.setState({ tasks: response.data });
     });
   }
@@ -76,20 +83,68 @@ class TaskTable extends React.Component {
     if (status === "Done") return "gold";
   };
 
+  handleStatusFilterChange = status => {
+    var tempState = [...this.state.selectedStatuses];
+    if (this.state.selectedStatuses.includes(status)) {
+      tempState = tempState.filter(item => item !== status);
+    } else {
+      tempState.push(status);
+    }
+
+    this.setState({ selectedStatuses: tempState }, () => this.refreshTasks());
+  };
+
   render() {
     const { classes } = this.props;
     const { rowsPerPage } = this.state;
 
     return (
       <div>
-        <Fab
-          color="primary"
-          size="small"
-          aria-label="add"
-          onClick={() => this.openEditWindow(null)}
-        >
-          <AddIcon />
-        </Fab>
+        <div>
+          <FormGroup row>
+            <Fab
+              color="primary"
+              size="small"
+              aria-label="add"
+              onClick={() => this.openEditWindow(null)}
+            >
+              <AddIcon />
+            </Fab>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  value="Draft"
+                  color="primary"
+                  onClick={() => this.handleStatusFilterChange("Draft")}
+                  checked={this.state.selectedStatuses.includes("Draft")}
+                />
+              }
+              label="Draft"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  value="Active"
+                  color="primary"
+                  onClick={() => this.handleStatusFilterChange("Active")}
+                  checked={this.state.selectedStatuses.includes("Active")}
+                />
+              }
+              label="Active"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  value="Done"
+                  color="primary"
+                  onClick={() => this.handleStatusFilterChange("Done")}
+                  checked={this.state.selectedStatuses.includes("Done")}
+                />
+              }
+              label="Done"
+            />
+          </FormGroup>
+        </div>
         <Table>
           <TableHead>
             <TableRow>

@@ -1,5 +1,6 @@
 package my.todotracker.rest;
 
+import my.todotracker.enums.TaskStatusEnum;
 import my.todotracker.service.TaskService;
 import my.todotracker.transport.dto.TaskDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ public class TaskRestController {
 	}
 
 	@GetMapping("/dashboard-tasks")
-	public List<TaskDTO> getDashboardTasks() {
-		return taskService.findAll();
+	public List<TaskDTO> getDashboardTasks(@RequestParam List<TaskStatusEnum> selectedStatuses) {
+		return taskService.findByStatus(selectedStatuses);
 	}
 
 	@GetMapping("get-task/{taskId}")

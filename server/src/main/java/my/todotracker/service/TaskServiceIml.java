@@ -31,6 +31,11 @@ public class TaskServiceIml implements TaskService {
 	}
 
 	@Override
+	public List<TaskDTO> findByStatus(List<TaskStatusEnum> statusEnums) {
+		return taskRepository.findByTaskStatusIn(statusEnums).stream().map(t -> taskMapper.taskToTaskDTO(t)).collect(Collectors.toList());
+	}
+
+	@Override
 	public TaskDTO saveTask(TaskDTO taskDTO) {
 		Task task;
 		if (taskDTO.getId() == null)
